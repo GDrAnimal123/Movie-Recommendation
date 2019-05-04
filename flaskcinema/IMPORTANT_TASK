@@ -1,0 +1,6 @@
+[DONE] 1. Combine get_movie_by_id_api, search_movies_by_name_api (handle if - ["s", "i"])
+[DONE] 2. Complete call_api function
+[DONE] 3. Combine all Jquery into 1 javascript module (init, cache, render)
+4. Propagate all Rating from global database into GUI.
+5. Store global database into SQLite.
+6. Rewrite home.html (Optional)

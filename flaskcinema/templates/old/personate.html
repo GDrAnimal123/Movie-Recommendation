@@ -1,0 +1,20 @@
+<!-- You get all movies that we want to recommend to users
+    Includes: recommended movies, (Top movies, Latest movies) => fixed well at bottom of screen.
+-->
+
+{% extends "layout.html" %}
+{% block content %}
+    {% if recommended_movies %}
+        <div id="movies" class="row">
+            {% for movie in recommended_movies %}
+                <div class="col-md-3">
+                    <div class="well text-center">
+                        <img src="{{ movie.Poster }}">
+                        <h4>{{ movie.Title }}</h5>
+                        <a class="btn btn-primary" href="{{ url_for('get_movie_by_id', movie_id=movie.imdbID) }}">Movie Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock content %}

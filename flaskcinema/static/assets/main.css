@@ -1,0 +1,40 @@
+body
+{
+   margin-top: 5rem;
+}
+
+.movies .post-content > img{
+position: relative;
+}
+
+.movies .post-content .dropdown {
+position: absolute;
+top: 175px;
+left: 50%;
+}
+
+#rate-icon {
+    /*display: none;*/
+}
+
+.glyphicon {
+/* All icons size */
+    font-size: 50px;
+}
+
+.movies img, #movie img{
+    /*All movie images width*/
+    width:100%;
+}
+
+@media(min-width:960px){
+    .movies .post .post-content{
+    /* Fixed size for movie post */
+    height: 500px;
+    }
+
+    .movies .post img{
+    /* Fixed size for movie image */
+    height:350px;
+    }
+}

@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h2 class="text-center">Search For Any Movie</h3>
+        <form method="POST" action="/">
+            {{ form.hidden_tag() }}
+            {{ form.search(class="form-control input-lg") }}
+        </form>
+    </div>
+    {% if form.search.data %}
+        <h4>Results for "{{form.search.data}}"</h4> </br>
+    {% endif %}
+    {% if movies %}
+        <div class="movies row">
+            {% for movie in movies %}
+                <div class="post col-md-3">
+                    <div class="post-content well text-center">
+                        <div>
+                            <img src="{{ movie.Poster }}">
+                            <div class="dropdown">
+                                <span id="rate-icon" class="glyphicon glyphicon-thumbs-up dropdown-toggle text-danger" data-toggle="dropdown"></span>
+                                <ul class="dropdown-menu">
+                                    <li><a>(1) Regret </a></li>
+                                    <li><a>(2) Bad </a></li>
+                                    <li><a>(3) Average </a></li>
+                                    <li><a>(4) Good </a></li>
+                                    <li><a>(5) Masterpiece </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h4>{{ movie.Title }}</h5>
+                        <input type="hidden" name="user_id" value="Quang">
+                        <input type="hidden" name="movie_id" value="{{ movie.imdbID }}">
+                        <a class="btn btn-primary" href="{{ url_for('get_movie_by_id', movie_id=movie.imdbID) }}">Movie Details</a>
+
+                        <h4>Score: <span class="score">No rating</span></h4>
+                        <!-- <button class="btn btn-primary" onclick="call_api('get_movie_by_id', { movie_id: {{movie.imdbID}} })">
+                            Movie Details
+                        </button> -->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock content %}
+{% block carousel %}
+    <h3>Recommendations</h3>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            {% if movies %}
+                {% set COMPONENTS = 3 %}
+                {% set NUMBER_SLIDES = (movies|length) // COMPONENTS %}
+                {% for i in range(NUMBER_SLIDES) %}
+                    <div class="item {{'active' if i == 0 }}">
+                        <div class="movies row">
+                            {% for y in range(i * COMPONENTS, (i + 1) * COMPONENTS, 1) %}
+                                {% if y < (movies|length) %}
+                                    <div class="post col-md-4">
+                                        <div class="post-content well text-center">
+                                            <img src="{{ movies[y].Poster }}">
+                                            <h4>{{ movies[y].Title }}</h5>
+                                            <a class="btn btn-primary" href="{{ url_for('get_movie_by_id', movie_id=movies[y].imdbID) }}">Movie Details</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+{% endblock carousel %}
