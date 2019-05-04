@@ -8,6 +8,11 @@ from flaskcinema.models import Rating
 
 ratings = []
 
+@app.route("/", methods=['GET'])
+def homepage():
+    print("Redirect home is called")
+    movies = []
+    return render_template('index.html')
 
 @app.route("/search", methods=["GET"])
 def search_movies_by_name():
